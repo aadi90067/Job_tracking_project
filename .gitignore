@@ -1,0 +1,14 @@
+# Ignore Python and Django system files
+*.pyc
+__pycache__/
+*.log
+*.sqlite3
+
+# Ignore virtual environments
+job/
+
+# Ignore environment files
+.env
+
+# Ignore static files collected by Django
+staticfiles/

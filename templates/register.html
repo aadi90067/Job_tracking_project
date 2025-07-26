@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Sign Up | Job Tracker</title>
+ <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+ <nav class="nav">
+  <h3 class="logo">A &amp; P <span class="span">DevS</span></h3>
+  <h3 class="line">Job tracking with us means with aadi</h3>
+ </nav>
+ <section class="hero">
+     {% for i in messages %}
+            <h3>{{i}}</h3>
+        {% endfor %}
+  <form class="sign_page" id="signupForm" autocomplete="off" method="post">
+      {% csrf_token %}
+   <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" name="username"  placeholder="Your Full Name" required>
+   </div>
+   <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+   </div>
+   <div>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+   </div>
+   <button type="submit" class="signup-btn">Create Your Account</button>
+  </form>
+  <h4>
+   If you already have an account, <span><a href="login">just login</a></span>
+  </h4>
+ </section>
+  <script>
+  document.getElementById('loginForm').addEventListener('submit', function(ev) {
+    ev.preventDefault();
+    window.location.href = "{% url 'login' %}";
+  });
+</script>
+</body>
+</html>

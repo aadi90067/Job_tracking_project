@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Tracker Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+  </head>
+  <body>
+    <nav class="sidebar">
+      <div class="logo">
+        <span class="material-icons">work</span> Job Tracker
+      </div>
+      <ul class="side-list">
+        <li>
+          <a href="#" class="active"
+            ><span class="material-icons">dashboard</span>Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="#"><span class="material-icons">settings</span>Settings</a>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <section class="dashboard-top">
+        <h1>Job Applications</h1>
+        <button class="add-job-btn" onclick="showForm()">+ Add Job</button>
+      </section>
+
+      <section class="job-form-wrapper" id="jobFormWrapper">
+        <form
+          class="job-form"
+          id="jobForm"
+          method="post"
+        >
+          {% csrf_token %}
+          <label>
+            Job Title
+            <input
+              id="jobTitle"
+              name="jobTitle"
+              type="text"
+              placeholder="Job Title"
+            />
+          </label>
+          <label>
+            Company
+            <input
+              id="company"
+              name="company"
+              type="text"
+              placeholder="Company"
+            />
+          </label>
+          <label>
+            Date
+            <input id="jobDate" name="jobDate" type="date" />
+          </label>
+          <label>
+            Status
+            <select id="Start" name="status" class="Start">
+              <option value="Pending">Pending</option>
+              <option value="Interview">Interview</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Accepted">Accepted</option>
+            </select>
+          </label>
+          <div class="form-btn-row">
+            <button class="submit" type="submit" id="submitBtn">Submit</button>
+            <button class="cancel" type="button" >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <div class="table-wrapper">
+        <table class="tab">
+          <thead>
+            <tr>
+              <th>Job Title</th>
+              <th>Company</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="bodytable">
+            {%for job in jobs%}
+            <tr>
+              <td>{{ job.job_title }}</td>
+              <td>{{ job.company }}</td>
+              <td>{{ job.application_date }}</td>
+              <td>{{ job.status }}</td>
+              <td><button>Delete</button></td>
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <script src="{% static 'js/Dashboard.js' %}"></script>
+  </body>
+</html>
